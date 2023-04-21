@@ -1,0 +1,42 @@
+<!-- signup.html (회원가입 화면) -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Signup</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+
+        function signup() {
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            if (users.some(u => u.username === username)) {
+                alert('Username already exists. Please choose a different username.');
+                return;
+            }
+            const user = { username, password, todos: [] };
+            users.push(user);
+            localStorage.setItem('users', JSON.stringify(users));
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            window.location.href = 'todo.html';
+        }
+
+        function goToLogin() {
+            window.location.href = 'login.html';
+        }
+    </script>
+</head>
+<body>
+    <h1 align='center'>Signup</h1>
+    <form>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <br>
+        <button type="button" onclick="signup()">Signup</button>
+        <button type="button" onclick="goToLogin()">Login</button>
+    </form>
+</body>
+</html>
